@@ -4,13 +4,16 @@ using namespace std;
 const long int MAX_IT=1000000;
 
 int main(){
-    struct timeval tv;
+    struct timeval ini;
+    struct timeval fin;
     struct timezone tz;
+
+    gettimeofday(&ini, &tz);
 
     for (int i=0;i<MAX_IT;i++);
 
-    gettimeofday(&tv, &tz);
-    cout << tv.tv_usec << endl;
+    gettimeofday(&fin, &tz);
+    cout << fin.tv_usec - ini.tv_usec << endl;
 
     return 0;
 }

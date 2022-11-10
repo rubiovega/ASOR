@@ -4,13 +4,14 @@ using namespace std;
 
 
 int main(){
+    char outstr[200];
     struct tm *result;
     time_t t = time(NULL);
 
     result=localtime(&t);
-    int year = result->tm_year + 1900;
+    strftime(outstr,sizeof(outstr),"%c",result);
 
-    cout << year << endl;
+    cout << outstr << endl;
 
     return 0;
 }
