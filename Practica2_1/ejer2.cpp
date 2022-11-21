@@ -1,3 +1,6 @@
+/*Imprimir el código de error generado por la llamada del código anterior, 
+tanto en su versión numérica como la cadena asociada.*/
+
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -6,9 +9,6 @@
 #include <iostream>
 using namespace std;
 
-char *strerror(int errnum);
-int setuid(uid_t uid);
-void perror(const char *s);
 int errno;
 
       
@@ -18,7 +18,7 @@ int errno;
       
         if (rc == -1){
             cout << errno << " " << strerror(errno) << endl;
-            return -1;
+            return 1;
 
         }
 
