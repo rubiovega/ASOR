@@ -1,3 +1,7 @@
+/*Escribir un programa que redirija la salida estándar a un fichero 
+cuya ruta se pasa como primer argumento. Probar haciendo que el programa escriba 
+varias cadenas en la salida estándar.*/
+
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>

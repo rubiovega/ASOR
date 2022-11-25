@@ -1,3 +1,6 @@
+/*Modificar el programa anterior para que también redirija la salida estándar de error al fichero. 
+/*Comprobar el funcionamiento incluyendo varias sentencias que impriman en ambos flujos. */
+
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
