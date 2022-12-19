@@ -9,15 +9,13 @@ const int SIZE=512;
 
 int main (int argc, char **argv)
 {
-    int p_h[2], h_p[2], readbytes;
+    int p_h[2], h_p[2], bytes;
     char flag,buffer[SIZE];
     pipe(p_h);
     pipe(h_p);
 
     pid_t pid;
     pid = fork();
-
-    
 
     switch(pid)
     {
@@ -27,33 +25,42 @@ int main (int argc, char **argv)
             break;
 
         case 0: //HIJO
-            cout << "Hijo " << getpid()<< " - " << getppid() << endl;
+            close(p_h[1]);
+            close(h_p[0]);
 
             for (size_t i = 0; i < 10; i++) 
             {
-                read(p_h[0], buffer, 1);
-                printf("[HIJO] Recibido: ", buffer);
+                bytes = read(p_h[0], buffer, sizeof(buffer));
+                write(0, "[HIJO] Mensaje: ", 17);
+                write(0, buffer, bytes);
+
                 sleep(1);
                 if(i == 9) flag = 'q';
                 write(h_p[1], &flag, 1);
             }
+
+            close(p_h[0]);
+            close(h_p[1]);
             break;
 
         default: //PADRE
-            cout << "Padre " << getpid()<< " - " << getppid() << endl;
             flag = 'l';
 
             close(p_h[0]);
             close(h_p[1]);
 
             while(flag != 'q'){
-                cout << "[PADRE] Mensaje:";
-                read(0, buffer, 255);
-                write(p_h[1], buffer, 255);
+                write(0, "[PADRE] Mensaje: ", 18);
+                bytes = read(0, buffer, sizeof(buffer));
+                write(p_h[1], buffer, bytes);
                 read(h_p[0], &flag, 1);
             }
 
-            printf("10 mensajes enviados con éxito. Saliendo...\n");
+            cout << "10 mensajes enviados con éxito. Saliendo..." << endl;
+
+            close(p_h[1]);
+            close(h_p[0]);
+
             break;
     }
 }
