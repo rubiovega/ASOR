@@ -8,9 +8,9 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-    if (argc < 2)
+    //./ejer2 <dir> <port>
+    if (argc != 3) 
     {
-        cout << "Introduce un argumento" << endl;
         exit(EXIT_FAILURE);
     }
 

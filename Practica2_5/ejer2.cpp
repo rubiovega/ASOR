@@ -13,6 +13,12 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
+    //./ejer2 <dir> <port>
+    if (argc != 3) 
+    {
+        exit(EXIT_FAILURE);
+    }
+
     struct addrinfo hints;
     struct addrinfo * result;
     memset(&hints, 0, sizeof(struct addrinfo));
