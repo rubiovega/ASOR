@@ -64,12 +64,12 @@ int main(int argc, char **argv)
 
         if (FD_ISSET(0, &fdset))
         {
-            cout << "recibiendo de la entrada estandar" << endl;
+            cout << "Comando recibido de la entrada standar" << endl;
             cin >> buf;
 
             switch(buf[0])
             {
-                                case 't':
+                case 't':
                     bytesSend = strftime(mensaje,max,"%T",lt);
                     break;
                 
@@ -82,8 +82,8 @@ int main(int argc, char **argv)
                     break;
 
                 default:
-                    strcpy(mensaje,"Comando no soportado");
-                    bytesSend = 20;
+                    cout << "Comando " << buf[0] << " no soportado";  
+                    strcpy(mensaje, "\n"); 
                     break;
 
             }

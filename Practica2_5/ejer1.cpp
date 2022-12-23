@@ -3,6 +3,7 @@
 #include <netdb.h>
 #include <iostream>
 #include <string.h>
+#include <stdlib.h> 
 using namespace std;
 
 int main(int argc, char **argv)
@@ -10,7 +11,7 @@ int main(int argc, char **argv)
     if (argc < 2)
     {
         cout << "Introduce un argumento" << endl;
-        return 1;
+        exit(EXIT_FAILURE);
     }
 
     struct addrinfo hints;

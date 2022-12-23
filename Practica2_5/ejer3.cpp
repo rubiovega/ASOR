@@ -41,7 +41,6 @@ int main(int argc, char **argv)
     {
         char m[50];
         size_t bytes = recvfrom(sd,m,50,0,(struct sockaddr *) &client_addr, &client_addrlen);
-        m[bytes] = '/0';
         cout << m << endl;
 
     }

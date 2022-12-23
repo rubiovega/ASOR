@@ -73,17 +73,21 @@ int main(int argc, char **argv)
                 break;
 
             case 'q':
+                cout << "Saliendo..." << endl;
                 exit(EXIT_SUCCESS);
                 break;
 
             default:
-                strcpy(mensaje,"Comando no soportado");
-                bytesSend = 20;
+                cout << "Comando " << buf[0] << " no soportado" << endl;
+                strcpy(mensaje, "\n");
+                bytesSend = 1;
                 break;
 
         }
         sendto(sd, mensaje, bytesSend, 0, (struct sockaddr *) &client_addr, client_addrlen);
 
     }
+
+    close(sd);
 }
 
