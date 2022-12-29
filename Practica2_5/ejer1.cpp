@@ -8,7 +8,7 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-    //./ejer2 <dir> <port>
+    //./ejer1 <dir> <port>
     if (argc != 3) 
     {
         exit(EXIT_FAILURE);
