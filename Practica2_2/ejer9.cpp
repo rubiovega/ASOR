@@ -10,6 +10,7 @@ La hora en la que se accedió el fichero por última vez.*/
 #include <unistd.h>
 #include <iostream>
 #include <string.h>
+#include <errno.h>
 using namespace std;
 
 int main(int argc, char **argv){
@@ -19,8 +20,8 @@ int main(int argc, char **argv){
     
     if (rc == -1)
     {
-        cout << "Error: stat" << endl;
-        return 1;
+        cout << "[lstat]: " << strerror(errno) << endl;
+        return -11;
     }
 
 

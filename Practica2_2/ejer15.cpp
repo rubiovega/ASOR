@@ -10,31 +10,30 @@ Si no lo consigue, el programa mostrará el error con perror(3) y terminará.*/
 #include <iostream>
 #include <stdio.h>
 #include <errno.h>
+#include <string.h>
 using namespace std;
 
 int main(int argc, char **argv)
 {
     if (argc < 2) 
     {
-     cout << "ERROR: Se debe especeficar la ruta del archivo en los parámetros del programa.\n";
+     cout << "usage: ./ejer15 <file>" << endl;
      return -1;
     }
 
     int fd = open ("./fichero",O_CREAT | O_RDWR,0777);
-
-    if (fd == -1) 
+    if (fd == -1)
     {
-    cout << "ERROR: No se ha podido abrir/crear el fichero.\n";
-    return -1;
+        cout << "[open]: " << strerror(errno) << endl;
+        return -1;
     }
 
     int rc = lockf(fd,F_LOCK,0);
 
-    if (rc==-1)
+    if (rc == -1)
     {
-        char *er;
-        cout << "Error: Lockf ";
-        perror(er);
+       cout << "[lockf]: " << strerror(errno) << endl;
+       return -1;
     }
 
     else 
@@ -43,7 +42,7 @@ int main(int argc, char **argv)
 
         char legible[200];
         struct tm *result;
-        time_t t = time(NULL);
+        time_t t = time(&t);
 
         result=localtime(&t);
         strftime(legible,sizeof(legible),"%c",result);
@@ -58,5 +57,7 @@ int main(int argc, char **argv)
         sleep(10);
 
     }
+
+    return 0;
 
 }

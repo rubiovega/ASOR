@@ -5,9 +5,9 @@
 using namespace std;
 
 int main(){
-    time_t t = time(NULL);
+    time_t t = time(&t);
 
-    cout << "Time as the number of seconds since the Epoch: " << time(&t) << endl;
+    cout << "Time as the number of seconds since the Epoch: " << t << endl;
 
     return 0;
 }

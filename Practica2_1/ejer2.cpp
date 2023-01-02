@@ -9,18 +9,15 @@ tanto en su versión numérica como la cadena asociada.*/
 #include <iostream>
 using namespace std;
 
-int errno;
+int main() {
+    int rc;
+    rc = setuid(0);
+    
+    if (rc == -1){
+        cout << errno << " " << strerror(errno) << endl;
+        return -1;
 
-      
-   int main() {
-        int rc;
-        rc = setuid(0);
-      
-        if (rc == -1){
-            cout << errno << " " << strerror(errno) << endl;
-            return 1;
-
-        }
-
-        return 0;
     }
+
+    return 0;
+}

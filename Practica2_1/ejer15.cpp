@@ -9,7 +9,7 @@ using namespace std;
 int main(){
     char legible[200];
     struct tm *result;
-    time_t t = time(NULL);
+    time_t t = time(&t);
 
     result=localtime(&t);
     strftime(legible,sizeof(legible),"%c",result);

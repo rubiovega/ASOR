@@ -7,7 +7,7 @@ using namespace std;
 
 int main(){
     struct tm *result;
-    time_t t = time(NULL);
+    time_t t = time(&t);
 
     result=localtime(&t);
     int year = result->tm_year + 1900;

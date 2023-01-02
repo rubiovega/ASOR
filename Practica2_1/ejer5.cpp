@@ -4,6 +4,8 @@ Comprobar la correcta ejecución de la llamada.*/
 #include <iostream>
 using namespace std;
 #include <sys/utsname.h>
+#include <string.h>
+#include <errno.h>
 
 int main(){
     int rc;
@@ -11,8 +13,10 @@ int main(){
 
     rc = uname(&buf);
 
-    if (rc == -1){
-        return 1;
+    if (rc == -1)
+    {
+        cout << "[uname]: " << strerror(errno) << endl;
+        return -1;
     }
         
 

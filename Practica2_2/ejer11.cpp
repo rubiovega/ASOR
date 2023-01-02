@@ -4,6 +4,8 @@ con el mismo nombre terminado en .sym y .hard, respectivamente. Comprobar el res
 
 #include <unistd.h>
 #include <sys/stat.h>
+#include <string.h>
+#include <errno.h>
 #include <iostream>
 using namespace std;
 
@@ -12,10 +14,10 @@ int main(int argc, char **argv){
 
     int rc = lstat(argv[1], &buf);
     
-    if (rc == -1)
+   if (rc == -1)
     {
-        cout << "Error: stat" << endl;
-        return 1;
+        cout << "[lstat]: " << strerror(errno) << endl;
+        return -1;
     }
     
     else if (S_ISREG(buf.st_mode))
