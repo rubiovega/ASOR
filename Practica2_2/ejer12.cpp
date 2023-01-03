@@ -14,6 +14,11 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
+    if (argc < 2) 
+    {
+     cout << "usage: ./ejer12 <file>" << endl;
+     return -1;
+    }
 
     int fd = open(argv[1],O_RDWR);
     if (fd == -1)

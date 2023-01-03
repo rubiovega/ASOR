@@ -10,6 +10,13 @@ con el mismo nombre terminado en .sym y .hard, respectivamente. Comprobar el res
 using namespace std;
 
 int main(int argc, char **argv){
+    
+    if (argc < 2) 
+    {
+     cout << "usage: ./ejer11 <file>" << endl;
+     return -1;
+    }
+
     struct stat buf;
 
     int rc = lstat(argv[1], &buf);

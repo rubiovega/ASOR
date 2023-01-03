@@ -1,5 +1,5 @@
 /*Modificar el programa anterior para que también redirija la salida estándar de error al fichero. 
-/*Comprobar el funcionamiento incluyendo varias sentencias que impriman en ambos flujos. */
+Comprobar el funcionamiento incluyendo varias sentencias que impriman en ambos flujos. */
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -12,6 +12,12 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
+    if (argc < 2) 
+    {
+     cout << "usage: ./ejer13 <file>" << endl;
+     return -1;
+    }
+
     int fd = open(argv[1],O_RDWR);
     if (fd == -1)
     {
