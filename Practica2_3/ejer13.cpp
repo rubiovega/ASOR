@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 {
     if (argc != 2) 
     {
-        cout << "ERROR: Introduce los segundos!";
+        cout << "usage: ./ejer13 <s>";
         return -1;
     }
 

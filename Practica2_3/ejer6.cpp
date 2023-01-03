@@ -1,4 +1,3 @@
-
 /*Escribir una plantilla de demonio (creación del nuevo proceso y de la sesión) en el que
  únicamente se muestren los atributos del proceso (como en el ejercicio anterior). 
  Además, fijar el directorio de trabajo del demonio a /tmp.*/
@@ -6,6 +5,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <unistd.h>
+#include <errno.h>
+#include <string.h>
 using namespace std;
 
 int main()
@@ -16,7 +17,7 @@ int main()
     switch(pid)
     {
         case -1:
-            perror("fork");
+            cout << "[fork]: " << strerror(errno) << endl;
             _exit(-1);
         break;
 
@@ -25,9 +26,12 @@ int main()
             pid_t mi_sid = setsid();
             chdir("/tmp");
             getcwd(ncwd, sizeof(ncwd));
+            cout << ncwd << endl;
 
-            cout << "Hijo. PID: " << getpid() << " " << getppid() << " " << getpgid(pid) << " " << getsid(pid) << endl; 
-            
+            cout << "PID: " << getpid() << endl;
+            cout << "PPID: " << getppid() << endl;
+            cout << "PGID: " << getpgid(pid) << endl;
+            cout << "SID: " << getsid(pid) << endl;         
         }
         break;
 
