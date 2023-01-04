@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <iostream>
 #include <errno.h>
 #include <string.h>
@@ -11,17 +12,29 @@ int main (int argc, char **argv)
 {
     int p_h[2], h_p[2], bytes;
     char flag,buffer[SIZE];
-    pipe(p_h);
-    pipe(h_p);
+    int rc = pipe(p_h);
 
-    pid_t pid;
-    pid = fork();
+    if (rc == -1)
+    {
+        cout << "[pipe] p_h: " << strerror(errno) << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    rc = pipe(h_p);
+
+    if (rc == -1)
+    {
+        cout << "[pipe] h_p: " << strerror(errno) << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    pid_t pid = fork();
 
     switch(pid)
     {
         case -1: //ERROR
-            perror("fork()");
-            return 1;
+            cout << "[fork]: " << strerror(errno) << endl;
+            exit(EXIT_FAILURE);
             break;
 
         case 0: //HIJO

@@ -8,6 +8,7 @@ de la tubería y ejecutará comando2 argumento2.*/
 
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <iostream>
 #include <errno.h>
 #include <string.h>
@@ -15,34 +16,55 @@ using namespace std;
 
 int main (int argc, char **argv)
 {
-    int fd[2];
-    pipe(fd);
+    if (argc != 5)
+    {
+        cout << "Usage: ./ejer1 <com1> <arg1> <com2> <arg2>" << endl;
+        return -1;
+    }
 
-    pid_t pid;
-    pid = fork();
+    int fd[2];
+    int rc = pipe(fd);
+
+     if (rc == -1)
+    {
+        cout << "[pipe]: " << strerror(errno) << endl;
+        exit(EXIT_FAILURE);
+    }   
+
+    pid_t pid = fork();
    
     switch(pid)
     {
         case -1: //ERROR
-            perror("fork()");
-            return 1;
+            cout << "[fork]: " << strerror(errno) << endl;
+            exit(EXIT_FAILURE);
             break;
 
         case 0: //HIJO
-            cout << "Hijo " << getpid()<< " - " << getppid() << endl;
+        {
             dup2(fd[0],0);
             close(fd[1]);
-            execlp(argv[3], argv[3], argv[4], (char *) 0);
-            cout << strerror(errno) << endl;
-            cout << "NO SE EJECUTA SI EXEC HIJO FUNCIONA"  << endl;
+            int rc_h = execlp(argv[3], argv[3], argv[4], (char *) 0);
+            if (rc_h == -1)
+            {
+                cout << "[execv] HIJO: " << strerror(errno) << endl;
+            }
             break;
+        }
 
         default: //PADRE
-            cout << "Padre " << getpid()<< " - " << getppid() << endl;
+        {
             dup2(fd[1],1);
             close(fd[0]);
-            execlp(argv[1], argv[1],argv[2],(char *) 0);
-            cout << "NO SE EJECUTA SI EXEC PADRE FUNCIONA"  << endl;
+            int rc_p = execlp(argv[1], argv[1],argv[2],(char *) 0);
+            if (rc_p == -1)
+            {
+                cout << "[execv] PADRE: " << strerror(errno) << endl;
+            }
             break;
+            
+        }
     }
+
+    return 0;
 }
